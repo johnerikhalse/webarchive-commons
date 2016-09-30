@@ -27,6 +27,7 @@
         <module>webarchive-commons-uri</module>
         <module>webarchive-commons-cdx</module>
         <module>webarchive-commons-util</module>
+        <module>webarchive-commons-cdx-modules</module>
     </modules>
 
     <developers>

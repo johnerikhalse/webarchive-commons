@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.netpreserve.commons.cdx.cdxsource;
+package org.netpreserve.commons.cdxmodules.zipnumcluster;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -32,6 +32,8 @@ import java.util.zip.GZIPInputStream;
 
 import org.netpreserve.commons.cdx.CdxFormat;
 import org.netpreserve.commons.cdx.SearchKey;
+import org.netpreserve.commons.cdx.cdxsource.SourceBlock;
+import org.netpreserve.commons.cdx.cdxsource.SourceDescriptor;
 
 /**
  *
@@ -90,7 +92,7 @@ public class ZipnumDescriptor implements SourceDescriptor {
 
         for (int i = firstIdx + 1; i < blocks.size(); i++) {
             SourceBlock nextBlock = blocks.get(i);
-            if (!key.included(nextBlock.key)) {
+            if (!key.included(nextBlock.getKey())) {
 //            if (toKey != null && toKey.compareTo(nextBlock.key) < 0) {
                 break;
             } else {
@@ -115,7 +117,7 @@ public class ZipnumDescriptor implements SourceDescriptor {
 //        }
 
         for (int i = 0; i < blocks.size(); i++) {
-            if (key.included(blocks.get(i).key)) {
+            if (key.included(blocks.get(i).getKey())) {
                 if (i == 0) {
                     return 0;
                 } else {
@@ -148,7 +150,7 @@ public class ZipnumDescriptor implements SourceDescriptor {
 
         byteBuf.clear();
 
-        Path path = baseDirectory.resolve(block.location);
+        Path path = baseDirectory.resolve(block.getLocation());
 
         try (FileChannel channel = FileChannel.open(path, StandardOpenOption.READ);) {
             ByteBuffer inBuf = ByteBuffer.allocate(block.getLength());
